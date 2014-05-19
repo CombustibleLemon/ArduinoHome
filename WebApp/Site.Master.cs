@@ -13,6 +13,8 @@ namespace WebApp
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
+        public string cssFile = "//netdna.bootstrapcdn.com/bootswatch/3.1.1/";
+        public string currentCssFile = "";
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -68,6 +70,19 @@ namespace WebApp
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        /// <param name="sender">Should be a <code>HyperLink</code> object</param
+        protected void CssCycle_Button(object sender, EventArgs e)
+        {
+            Button funButton = (Button) sender;
+            CssCycle(funButton.Text);
+        }
+
+        protected void CssCycle(string cssName)
+        {
+            currentCssFile = cssFile + cssName.ToLower() + "/bootstrap.min.css";
+            stylesheet.Href = currentCssFile;
         }
     }
 }

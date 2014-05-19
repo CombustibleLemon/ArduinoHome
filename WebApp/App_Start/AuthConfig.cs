@@ -21,9 +21,9 @@ namespace WebApp
             //    appId: "your Facebook app id",
             //    appSecret: "your Facebook app secret");
 
-            //OpenAuth.AuthenticationClients.AddMicrosoft(
-            //    clientId: "your Microsoft account client id",
-            //    clientSecret: "your Microsoft account client secret");
+            OpenAuth.AuthenticationClients.AddMicrosoft(
+                clientId: "0000000040120587",
+                clientSecret: "So3Tm6KGDMkNcO-pVhdZGHWGUy5S5JuT");
 
             //OpenAuth.AuthenticationClients.AddGoogle();
         }

@@ -12,12 +12,23 @@
 </head>
 <body>
   <header>
-    <div style="navbar navbar-foxed-top">
-
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="../"><%: Site.Name %></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="../About.aspx">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </header>
   <form id="form1" runat="server">
-    <div>
+    <div class="container">
       <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
     </div>
   </form>

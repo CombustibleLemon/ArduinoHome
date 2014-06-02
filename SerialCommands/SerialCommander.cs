@@ -20,7 +20,7 @@ namespace SerialCommands
                 throw new ArgumentOutOfRangeException("portNum", "Port number was 0 or below. FIX IT, DAMNIT!");
             }
 
-            serialPort = new SerialPort("COM" + portNum.ToString(), 9600);
+            serialPort = new SerialPort("COM" + portNum, 9600);
             serialPort.Open();
 
             serialPort.DataReceived += serialPort_DataReceived;

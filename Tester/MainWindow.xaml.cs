@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SerialCommands;
+using System.Web;
 
 namespace Tester
 {
@@ -26,9 +27,13 @@ namespace Tester
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SerialButton_Click(object sender, RoutedEventArgs e)
         {
             MySerialReader reader = new MySerialReader(4);
+        }
+
+        private void WebButton_Click(object sender, RoutedEventArgs e)
+        {
             
         }
     }

@@ -98,6 +98,12 @@
     <Folder Include="Content\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SerialCommands\SerialCommands.csproj">
+      <Project>{c340125f-2e4f-437a-afe9-616db29a3966}</Project>
+      <Name>SerialCommands</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

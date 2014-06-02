@@ -10,7 +10,6 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 void setup() {
   Serial.begin(9600);
   Serial.println("Setup...");
-  Serial.println();
   
   lcd.begin(20, 4);
   lcd.setCursor(1, 0);
@@ -23,7 +22,7 @@ void setup() {
   lcd.print(" === == == == === ");
   delay(2000);
   
-  //TODO: More setup
+  Serial.println("
 }
 
 void loop() {

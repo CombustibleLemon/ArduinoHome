@@ -9,6 +9,7 @@
 
 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+int temperatureGoal;
 
 void setup() {
   Serial.begin(9600);
@@ -34,12 +35,29 @@ void loop() {
   float insideTemp = getTempF();
   lcd.print(insideTemp);
   lcd.print("F");
+  
   if (insideTemp > 75) {
     // Turn on A/C
   } else {
     // Turn off A/C
   }
 
-  // put your main code here, to run repeatedly:
-
+  // Gets any messages from serial
+  while (Serial.available() > 0) {
+    for (int i = 0; i < 2; i++)
+    {
+      int received = Serial.parseInt();
+      if (Serial.available() > 0)
+      {
+        received = (received * 10) + Serial.parseInt();
+      }
+    }
+    
+    // say what you got:
+    Serial.print("I received: ");
+    Serial.println(receivedData, DEC);
+    
+    temperatureGoal = received;
+  }
+  
 }

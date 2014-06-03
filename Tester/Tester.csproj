@@ -106,10 +106,6 @@
       <Project>{c340125f-2e4f-437a-afe9-616db29a3966}</Project>
       <Name>SerialCommands</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebApp\WebApp.csproj">
-      <Project>{95a4697a-c52c-42a5-8859-8da818361fb9}</Project>
-      <Name>WebApp</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

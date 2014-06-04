@@ -13,7 +13,7 @@
 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 int temperatureGoal;
-boolean
+boolean blowerState;
 
 void setup() {
   pinMode(RELAY_HEATER, OUTPUT);
@@ -38,63 +38,95 @@ void setup() {
 }
 
 void loop() {
+  checkTemperature();
+  receiveFromSerial();
+}
+
+void checkTemperature() {
+  // Display current temperature on LCD
   lcd.setCursor(1,3);
   lcd.print("Inside Temp: ");
   lcd.print(getTempF());
   lcd.print("F");
   
-  if (insideTemp > 75) {
-    // Turn on A/C
-  } else {
-    // Turn off A/C
+  // If is too cold, activate the heater
+  if ((int) (getTempF()) < (temperatureGoal - 2)) {
+    activateHeaterCompressor(RELAY_HEATER);
   }
+  
+  // If is too hot, activate the compressor
+  if ((int) (getTempF()) > (temperatureGoal + 2)) {
+    activateHeaterCompressor(RELAY_COMPRESSOR);
+  }
+  
+  // If it is normal, turn off the  blower
+  if ((int) (getTempF()) < (temperatureGoal + 2)
+   && (int) (getTempF()) > (temperatureGoal - 2)) {
+     toggleBlower(false);
+   }     
+}
 
-  // Gets any messages from serial
+// Gets any messages from serial
+void receiveFromSerial() {
   while (Serial.available() > 0) {
-    int receivedData = Serial.parseInt);
+    // Read one byte from serial buffer
+    byte receivedData = Serial.read());
     
-    if (receivedData < -1 || receivedData > 1)
-    {
-      receivedData
-    }
+    // Process anything received
+    processSerialInput(receivedData);
     
-    // say what you got:
+    // Send a receipt back over serial
     Serial.print("I received: ");
-    Serial.println(receivedData, DEC);
-    
-    temperatureGoal += receivedData;
+    Serial.println(receivedData);
   }
 }
 
+// Does basic activity based on the input from serial
 void processSerialInput(int serialInput) {
-  if (serialInput < -1 || serialInput > 3) {
+  if (serialInput < 0 || serialInput > 4) {
     return;
-  } else if (serialInput == 0) {
-    toggleBlower();
-  } else {
-    
+  } else if (serialInput == 0) {      // TEMPERATURE_INCREASE
+    temperatureGoal++;
+  } else if (serialInput == 1) {      // TEMPERATURE_DECREASE
+    temperatureGoal--;
+  } else if (serialInput == 2) {      // TEMPERATURE_GOAL
+    Serial.println(temperatureGoal);
+  } else if (serialInput == 3) {      // TEMPERATURE_CURRENT
+    int integerified = getTempF() * 100;
+    Serial.println(integerified);
+  } else if (serialInput == 4) {      // TEMPERATURE_BLOWER
+    if (blowerState) {
+      Serial.println(1);
+    } else {
+      Serial.println(0);
+    }
   }
 }
 
-void checkTemperature(
-
-void toggleBlower() {
-  if (blowerState == false) {
+// Turns the blower either off or on
+void toggleBlower(boolean state) {
+  if (!state) {
     digitalWrite(RELAY_BLOWER, HIGH);
   } else {
     digitalWrite(RElAY_BLOWER, LOW);
   }
   
-  blowerState = !blowerState;
+  blowerState = state;
 }
+
+// Turns (heater | compressor) (on | off)
 void activateHeaterCompressor(int relayPin) {
-  if (relayPin != RELAY_HEATER         // Pin is not for this
+  if (relayPin != RELAY_HEATER         // If pin is not for this
   && relayPin != RELAY_COMPRESSOR) {
     return;
   }
   
-  digitalWrite(RELAY_HEATER, LOW);
-  digitalWrite(RELAY_COMPRESSOR, LOW);
+  deactivateHeaterCompressor();
   digitalWrite(relayPin, HIGH);
 }
-  
+
+// Turns off heater & compressor
+void deactivateHeaterCompressor () {
+  digitalWrite(RELAY_HEATER, LOW);
+  digitalWrite(RELAY_COMPRESSOR, LOW);
+}

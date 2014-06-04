@@ -10,9 +10,8 @@ namespace SerialCommands
 {
     public class MySerial : IDisposable
     {
-        public SerialPort serialPort;
+        private SerialPort serialPort;
         private Queue<byte> recievedData = new Queue<byte>();
-        private int lastSent;
 
         public MySerial(int portNum)
         {
@@ -22,31 +21,20 @@ namespace SerialCommands
             }
 
             serialPort = new SerialPort("COM" + portNum, 9600);
+            serialPort.ReadTimeout = 10000;
 
             serialPort.Open();
-
-            serialPort.DataReceived += serialPort_DataReceived;
         }
 
-        private void serialPort_DataReceived(object s, SerialDataReceivedEventArgs e)
+        public void Send(byte[] i)
         {
-            byte[] data = new byte[serialPort.BytesToRead];
-            serialPort.Read(data, 0, data.Length);
-
-            data.ToList().ForEach(b => recievedData.Enqueue(b));
-
-            foreach (byte com in data) Console.WriteLine(com);
-            // processData();
+            serialPort.Write(Encoding.ASCII.GetString(i));
         }
 
-        public void send(byte[] i)
+        public string ProcessData()
         {
-            serialPort.Write(System.Text.Encoding.ASCII.GetString(i));
-        }
-
-        private void processData()
-        {
-            
+            string ascii = serialPort.ReadLine();
+            return ascii;
         }
 
         public void Dispose()

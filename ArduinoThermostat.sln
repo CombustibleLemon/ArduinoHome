@@ -9,8 +9,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Arduino", "Arduino\Arduino.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialCommands", "SerialCommands\SerialCommands.csproj", "{C340125F-2E4F-437A-AFE9-616DB29A3966}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester", "Tester\Tester.csproj", "{95C455EF-8FAC-48AA-8886-347B4AEC7E61}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,16 +49,6 @@ Global
 		{C340125F-2E4F-437A-AFE9-616DB29A3966}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C340125F-2E4F-437A-AFE9-616DB29A3966}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C340125F-2E4F-437A-AFE9-616DB29A3966}.Release|Win32.ActiveCfg = Release|Any CPU
-		{95C455EF-8FAC-48AA-8886-347B4AEC7E61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95C455EF-8FAC-48AA-8886-347B4AEC7E61}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95C455EF-8FAC-48AA-8886-347B4AEC7E61}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{95C455EF-8FAC-48AA-8886-347B4AEC7E61}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{95C455EF-8FAC-48AA-8886-347B4AEC7E61}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{95C455EF-8FAC-48AA-8886-347B4AEC7E61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95C455EF-8FAC-48AA-8886-347B4AEC7E61}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95C455EF-8FAC-48AA-8886-347B4AEC7E61}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{95C455EF-8FAC-48AA-8886-347B4AEC7E61}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{95C455EF-8FAC-48AA-8886-347B4AEC7E61}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

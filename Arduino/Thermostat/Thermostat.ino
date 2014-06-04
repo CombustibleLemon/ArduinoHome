@@ -12,7 +12,7 @@
 #define RELAY_BLOWER 10
 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
-int temperatureGoal;
+int temperatureGoal = 72;
 boolean blowerState;
 
 void setup() {
@@ -50,18 +50,18 @@ void checkTemperature() {
   lcd.print("F");
   
   // If is too cold, activate the heater
-  if ((int) (getTempF()) < (temperatureGoal - 2)) {
+  if (int(getTempF()) < (temperatureGoal - 2)) {
     activateHeaterCompressor(RELAY_HEATER);
   }
   
   // If is too hot, activate the compressor
-  if ((int) (getTempF()) > (temperatureGoal + 2)) {
+  if (int(getTempF()) > (temperatureGoal + 2)) {
     activateHeaterCompressor(RELAY_COMPRESSOR);
   }
   
   // If it is normal, turn off the  blower
-  if ((int) (getTempF()) < (temperatureGoal + 2)
-   && (int) (getTempF()) > (temperatureGoal - 2)) {
+  if (int(getTempF()) < (temperatureGoal + 2)
+   && int(getTempF()) > (temperatureGoal - 2)) {
      toggleBlower(false);
    }     
 }
@@ -74,15 +74,13 @@ void receiveFromSerial() {
     
     // Process anything received
     processSerialInput(receivedData);
-    
-    // Send a receipt back over serial
-    Serial.print("I received: ");
-    Serial.println(receivedData);
   }
 }
 
 // Does basic activity based on the input from serial
 void processSerialInput(int serialInput) {
+  String message;
+  
   if (serialInput < 0 || serialInput > 4) {
     return;
   } else if (serialInput == 0) {      // TEMPERATURE_INCREASE
@@ -90,15 +88,18 @@ void processSerialInput(int serialInput) {
   } else if (serialInput == 1) {      // TEMPERATURE_DECREASE
     temperatureGoal--;
   } else if (serialInput == 2) {      // TEMPERATURE_GOAL
-    Serial.println(temperatureGoal);
+    message = String(temperatureGoal);
+    Serial.println(message);
   } else if (serialInput == 3) {      // TEMPERATURE_CURRENT
-    int integerified = getTempF() * 100;
-    Serial.println(integerified);
+    float bigger = getTempF() * 100;
+    int integerified = int(bigger);
+    message = string(integerified);
+    Serial.println(message);
   } else if (serialInput == 4) {      // TEMPERATURE_BLOWER
     if (blowerState) {
-      Serial.println(1);
+      Serial.println("on");
     } else {
-      Serial.println(0);
+      Serial.println("off");
     }
   }
 }

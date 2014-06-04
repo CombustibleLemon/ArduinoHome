@@ -13,13 +13,22 @@ namespace BasicWebControl {
     public partial class _default {
         
         /// <summary>
+        /// port control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox port;
+        
+        /// <summary>
         /// ArduinoConnectionButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton ArduinoConnectionButton;
+        protected global::System.Web.UI.WebControls.Button ArduinoConnectionButton;
         
         /// <summary>
         /// currentTemperature control.
@@ -46,7 +55,7 @@ namespace BasicWebControl {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton tempIncreaser;
+        protected global::System.Web.UI.WebControls.Button tempIncreaser;
         
         /// <summary>
         /// tempDecreaser control.
@@ -55,6 +64,6 @@ namespace BasicWebControl {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton tempDecreaser;
+        protected global::System.Web.UI.WebControls.Button tempDecreaser;
     }
 }

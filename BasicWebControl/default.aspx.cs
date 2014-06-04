@@ -14,46 +14,63 @@ namespace BasicWebControl
         public readonly byte[] TEMPERATURE_DECREASE = { 1 };
         public readonly byte[] TEMPERATURE_GOAL     = { 2 };
         public readonly byte[] TEMPERATURE_CURRENT  = { 3 };
+        public readonly byte[] TEMPERATURE_BLOWER   = { 4 };
         public MySerial serial;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            currentTemperature.InnerText = "71.92";
-            goalTemperature.InnerText = "70";
+            currentTemperature.InnerText = "";
+            goalTemperature.InnerText = "";
         }
 
         protected void IncreaseTemp(object sender, EventArgs e)
         {
-            //serial.send(TEMPERATURE_INCREASE);
-            goalTemperature.InnerText = (int.Parse(goalTemperature.InnerText) + 1).ToString();
+            serial.Send(TEMPERATURE_INCREASE);
+            //goalTemperature.InnerText = (int.Parse(goalTemperature.InnerText) + 1).ToString();
             RefreshData();
         }
 
         protected void DecreaseTemp(object sender, EventArgs e)
         {
-            serial.send(TEMPERATURE_DECREASE);
+            serial.Send(TEMPERATURE_DECREASE);
             RefreshData();
         }
 
         protected void RefreshData()
         {
+            // Refresh current temperature
+            serial.Send(TEMPERATURE_CURRENT);
+            int i = int.Parse(serial.ProcessData());
+            i = i / 100;
+            currentTemperature.InnerText = i.ToString();
 
+            // Refresh goal temperature
+            serial.Send(TEMPERATURE_GOAL);
+            goalTemperature.InnerText = serial.ProcessData();
         }
 
         protected void ConnectToArduino(object sender, EventArgs e)
         {
-            serial = new MySerial(3);
+            try
+            {
+                serial = new MySerial(int.Parse(port.Text));
+            }
+            catch
+            {
+                serial = null;
+            }
+            
 
             if (serial == null)
             {
                 serial = null;
                 ArduinoConnectionButton.CssClass = "btn btn-danger";
-                ArduinoConnectionButton.Text = "<i class=\"fa fa-times\"></i> Failed";
+                ArduinoConnectionButton.Text = "Connection to Arduino failed";
             }
             else
             {
                 ArduinoConnectionButton.CssClass = "btn btn-success";
-                ArduinoConnectionButton.Text = "<i class=\"fa fa-check\"></i> Connected";
+                ArduinoConnectionButton.Text = " Connected";
                 tempIncreaser.Enabled = true;
                 tempDecreaser.Enabled = true;
                 tempIncreaser.CssClass = "btn btn-danger";

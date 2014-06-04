@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Thermostat.ino" />
+    <None Include="Thermostat\Thermostat.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Thermostat\temperature.h">

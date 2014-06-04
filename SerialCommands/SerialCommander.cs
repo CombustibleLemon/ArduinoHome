@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace SerialCommands
 {
-    public class MySerialReader : IDisposable
+    public class MySerial : IDisposable
     {
-        private SerialPort serialPort;
+        public SerialPort serialPort;
         private Queue<byte> recievedData = new Queue<byte>();
+        private int lastSent;
 
-        public MySerialReader(int portNum)
+        public MySerial(int portNum)
         {
             if (portNum <= 0)
             {
@@ -21,12 +22,13 @@ namespace SerialCommands
             }
 
             serialPort = new SerialPort("COM" + portNum, 9600);
+
             serialPort.Open();
 
             serialPort.DataReceived += serialPort_DataReceived;
         }
 
-        void serialPort_DataReceived(object s, SerialDataReceivedEventArgs e)
+        private void serialPort_DataReceived(object s, SerialDataReceivedEventArgs e)
         {
             byte[] data = new byte[serialPort.BytesToRead];
             serialPort.Read(data, 0, data.Length);
@@ -37,13 +39,14 @@ namespace SerialCommands
             // processData();
         }
 
-        void processData()
+        public void send(byte[] i)
         {
-            // Determine if we have a "packet" in the queue
-            if (recievedData.Count > 50)
-            {
-                var packet = Enumerable.Range(0, 50).Select(i => recievedData.Dequeue());
-            }
+            serialPort.Write(System.Text.Encoding.ASCII.GetString(i));
+        }
+
+        private void processData()
+        {
+            
         }
 
         public void Dispose()

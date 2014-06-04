@@ -29,7 +29,7 @@ namespace Tester
 
         private void SerialButton_Click(object sender, RoutedEventArgs e)
         {
-            MySerialReader reader = new MySerialReader(4);
+            MySerial reader = new MySerial(4);
         }
 
         private void WebButton_Click(object sender, RoutedEventArgs e)

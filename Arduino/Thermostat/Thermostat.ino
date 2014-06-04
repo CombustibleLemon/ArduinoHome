@@ -4,7 +4,8 @@
 */
 
 #include <LiquidCrystal.h>
-#include "DallasTemperature.h"
+#include <DallasTemperature.h>
+#include <OneWire.h>
 #include "temperature.h"
 
 #define RELAY_HEATER 8
@@ -23,7 +24,7 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Setup...");
   initThermometer();
-  lcd.begin(20, 4);
+  lcd.begin(20, 4);/*
   lcd.setCursor(1, 0);
   lcd.print(" === == == == === ");
   lcd.setCursor(1, 1);
@@ -32,6 +33,7 @@ void setup() {
   lcd.print(": YOUNG COCONUTS :");
   lcd.setCursor(1, 3);
   lcd.print(" === == == == === ");
+  */
   delay(2000);
   
   Serial.println("");
@@ -40,28 +42,35 @@ void setup() {
 void loop() {
   checkTemperature();
   receiveFromSerial();
+  
 }
 
 void checkTemperature() {
+  requestTempertures();
   // Display current temperature on LCD
-  lcd.setCursor(1,3);
+  lcd.setCursor(1,1);
   lcd.print("Inside Temp: ");
-  lcd.print(getTempF());
-  lcd.print("F");
+  //lcd.setCursor(1,2);
+  float temp = getTempF();
+  lcd.print(temp);
+  lcd.setCursor(1,2);
+  lcd.print("Target Temp: ");
+  lcd.print(temperatureGoal);
+  //lcd.print("F");
   
   // If is too cold, activate the heater
-  if (int(getTempF()) < (temperatureGoal - 2)) {
+  if (int(temp) < (temperatureGoal - 2)) {
     activateHeaterCompressor(RELAY_HEATER);
   }
   
   // If is too hot, activate the compressor
-  if (int(getTempF()) > (temperatureGoal + 2)) {
+  if (int(temp) > (temperatureGoal + 2)) {
     activateHeaterCompressor(RELAY_COMPRESSOR);
   }
   
   // If it is normal, turn off the  blower
-  if (int(getTempF()) < (temperatureGoal + 2)
-   && int(getTempF()) > (temperatureGoal - 2)) {
+  if (int(temp) < (temperatureGoal + 2)
+   && int(temp) > (temperatureGoal - 2)) {
      toggleBlower(false);
    }     
 }
@@ -70,8 +79,8 @@ void checkTemperature() {
 void receiveFromSerial() {
   while (Serial.available() > 0) {
     // Read one byte from serial buffer
-    byte receivedData = Serial.read());
-    
+    byte receivedData = Serial.read();
+    //int receivedData = Serial.parseInt();
     // Process anything received
     processSerialInput(receivedData);
   }
@@ -93,7 +102,7 @@ void processSerialInput(int serialInput) {
   } else if (serialInput == 3) {      // TEMPERATURE_CURRENT
     float bigger = getTempF() * 100;
     int integerified = int(bigger);
-    message = string(integerified);
+    message = String(integerified);
     Serial.println(message);
   } else if (serialInput == 4) {      // TEMPERATURE_BLOWER
     if (blowerState) {
@@ -109,7 +118,7 @@ void toggleBlower(boolean state) {
   if (!state) {
     digitalWrite(RELAY_BLOWER, HIGH);
   } else {
-    digitalWrite(RElAY_BLOWER, LOW);
+    digitalWrite(RELAY_BLOWER, LOW);
   }
   
   blowerState = state;

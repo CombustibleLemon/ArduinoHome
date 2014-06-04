@@ -59,6 +59,7 @@
   <ItemGroup>
     <Content Include="about.aspx" />
     <Content Include="default.aspx" />
+    <Content Include="Scripts\JavaScript.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -97,7 +98,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
-    <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SerialCommands\SerialCommands.csproj">

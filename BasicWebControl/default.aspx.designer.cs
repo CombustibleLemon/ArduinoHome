@@ -22,13 +22,13 @@ namespace BasicWebControl {
         protected global::System.Web.UI.WebControls.TextBox port;
         
         /// <summary>
-        /// ArduinoConnectionButton control.
+        /// ArduinoConnectionButton2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ArduinoConnectionButton;
+        protected global::System.Web.UI.WebControls.Button ArduinoConnectionButton2;
         
         /// <summary>
         /// currentTemperature control.

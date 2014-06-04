@@ -15,7 +15,7 @@ namespace BasicWebControl
         public readonly byte[] TEMPERATURE_GOAL     = { 2 };
         public readonly byte[] TEMPERATURE_CURRENT  = { 3 };
         public readonly byte[] TEMPERATURE_BLOWER   = { 4 };
-        public MySerial serial;
+        public static MySerial serial;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,6 +32,7 @@ namespace BasicWebControl
 
         protected void DecreaseTemp(object sender, EventArgs e)
         {
+            serial = new MySerial(3);
             serial.Send(TEMPERATURE_DECREASE);
             RefreshData();
         }
@@ -41,8 +42,8 @@ namespace BasicWebControl
             // Refresh current temperature
             serial.Send(TEMPERATURE_CURRENT);
             int i = int.Parse(serial.ProcessData());
-            i = i / 100;
-            currentTemperature.InnerText = i.ToString();
+            double d = i / 100.0;
+            currentTemperature.InnerText = d.ToString();
 
             // Refresh goal temperature
             serial.Send(TEMPERATURE_GOAL);
@@ -53,28 +54,30 @@ namespace BasicWebControl
         {
             try
             {
+                //serial = new MySerial(int.Parse(port.Text));
                 serial = new MySerial(int.Parse(port.Text));
             }
             catch
             {
+                ArduinoConnectionButton2.Text = "Error!";
                 serial = null;
             }
-            
+
 
             if (serial == null)
             {
-                serial = null;
-                ArduinoConnectionButton.CssClass = "btn btn-danger";
-                ArduinoConnectionButton.Text = "Connection to Arduino failed";
+                ArduinoConnectionButton2.CssClass = "btn btn-danger";
+                ArduinoConnectionButton2.Text = "Connection to Arduino failed";
             }
             else
             {
-                ArduinoConnectionButton.CssClass = "btn btn-success";
-                ArduinoConnectionButton.Text = " Connected";
+                ArduinoConnectionButton2.CssClass = "btn btn-success";
+                ArduinoConnectionButton2.Text = " Connected";
                 tempIncreaser.Enabled = true;
                 tempDecreaser.Enabled = true;
                 tempIncreaser.CssClass = "btn btn-danger";
                 tempDecreaser.CssClass = "btn btn-info";
+                RefreshData();
             }
         }
     }

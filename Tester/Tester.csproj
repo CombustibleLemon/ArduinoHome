@@ -98,17 +98,13 @@
       <Project>{cee981d6-c4ee-412f-9afd-88bda7e89062}</Project>
       <Name>Arduino</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BasicWebControl\BasicWebControl.csproj">
+    <ProjectReference Include="..\BasicWebControl\Web Control.csproj">
       <Project>{47aed3bf-ad38-42c8-962b-6276ef5eb521}</Project>
-      <Name>BasicWebControl</Name>
+      <Name>Web Control</Name>
     </ProjectReference>
     <ProjectReference Include="..\SerialCommands\SerialCommands.csproj">
       <Project>{c340125f-2e4f-437a-afe9-616db29a3966}</Project>
       <Name>SerialCommands</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebApp\WebApp.csproj">
-      <Project>{95a4697a-c52c-42a5-8859-8da818361fb9}</Project>
-      <Name>WebApp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

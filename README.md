@@ -1,4 +1,4 @@
-ArduinoThermostat
+ArduinoHome
 =================
 
-An ASP.NET website to control an Arduino thermostat
+Using an ASP.NET website to automate a home through a centralized network of Arduino boards.

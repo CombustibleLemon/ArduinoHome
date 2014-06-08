@@ -19,6 +19,7 @@ namespace BasicWebControl
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            houseName.InnerHtml = "Leonard home";
             currentTemperature.InnerText = "";
             goalTemperature.InnerText = "";
         }

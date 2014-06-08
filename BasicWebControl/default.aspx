@@ -5,7 +5,7 @@
     <div class="row">
       <div class="page-header" id="banner">
         <div class="jumbotron">
-          <div class="h2">Thermostat</div>
+          <div class="h2" id="houseName" runat="server"></div>
           <div class="form-group has-success">
             <div class="col-lg-2">
               <asp:TextBox ID="port" runat="server" type="number" size="2" min="1" max="8" CssClass="form-control" placeholder="Port Number" ValidationGroup="connection" />
